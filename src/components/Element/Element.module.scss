@@ -1,0 +1,21 @@
+@import '../../theme/css/colors';
+@import '../../theme/css/mixins';
+
+.Element {
+    width: 50px;
+    height: 50px;
+    background-color: $color-gray;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+    font-size: 2rem;
+    margin: 4px 10px;
+    @include flex();
+}
+
+.Element:active {
+    transform: scale(0.9);
+    font-size: 2rem;
+    background-color: $color-green;
+}
