@@ -470,7 +470,7 @@ const Calculator = () => {
             <input
                 ref={resultRef}
                 type={'text'}
-                inputMode={'numeric'}
+                inputMode={'none'}
                 value={result}
                 onChange={(event) => setResult(event.target.value)}
                 className={classes['Result']}
