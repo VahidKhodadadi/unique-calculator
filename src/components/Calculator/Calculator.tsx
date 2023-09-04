@@ -427,8 +427,11 @@ const Calculator = () => {
             {
                 content: '+/-',
                 click: () => {
-                    if (result.trim() === '') {
-                        return;
+                    // if (result.trim() === '') {
+                    //     return;
+                    // }
+                    if (result.startsWith('-')) {
+                        setResult(prev => prev.slice(1));
                     }
                     if (result.startsWith('(-')) {
                         setResult(prev => prev.slice(2));
