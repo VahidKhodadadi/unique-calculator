@@ -12,9 +12,9 @@
     display: flex;
     flex-direction: column;
 
-    &.EngineerMode {
-        width: 525px;
-    }
+    // &.EngineerMode {
+    //     width: 525px;
+    // }
 
     .SpecialButtons {
         width: 100%;
@@ -31,6 +31,7 @@
         @include flex(space-between, flex-start);
         flex-wrap: wrap;
         flex-grow: 1;
+        overflow-y: auto;
 
         .DefaultButtons {
             width: 100%;
@@ -41,15 +42,18 @@
         }
 
         .EngineerButtons {
-            width: 225px;
-            @include flex(flex-start);
+            width: 100%;
+            @include flex(center);
             flex-wrap: wrap;
+            gap: 10px;
+            margin: auto;
+            margin-bottom: 10px;
         }
     }
 
-    &.EngineerMode .Buttons {
-        width: 525px;
-    }
+    // &.EngineerMode .Buttons {
+    //     width: 525px;
+    // }
 
     .Icon {
         width: 25px;
