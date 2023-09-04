@@ -2,15 +2,15 @@
 @import '../../theme/css/mixins';
 
 .Element {
-    width: 50px;
-    height: 50px;
+    width: 20%;
+    max-width: 25%;
+    aspect-ratio: 1/1;
     background-color: $color-gray;
     border-radius: 50%;
     transition: all 0.2s ease;
     user-select: none;
     -webkit-user-drag: none;
     font-size: 2rem;
-    margin: 4px 10px;
     @include flex();
 }
 

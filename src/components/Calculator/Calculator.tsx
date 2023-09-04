@@ -92,13 +92,17 @@ const Calculator = () => {
         setHistory([]);
     }, [])
 
-    const addChars = useCallback((content: string) => {
-        setResult(prevResult => `${prevResult}${content}`);
+    const appendChars = useCallback((content: string) => {
+        setResult(prev => `${prev}${content}`);
+    }, [])
+
+    const prependChars = useCallback((content: string) => {
+        setResult(prev => `${content}${prev}`);
     }, [])
 
     const clickNumberHandler = useCallback((content: string) => {
-        addChars(content);
-    }, [addChars])
+        appendChars(content);
+    }, [appendChars])
 
     const clearResult = useCallback(() => {
         setResult('');
@@ -140,8 +144,8 @@ const Calculator = () => {
         if (isLastCharOperator()) {
             return;
         }
-        addChars(content);
-    }, [isLastCharOperator, addChars])
+        appendChars(content);
+    }, [isLastCharOperator, appendChars])
 
     const changeMathMode = useCallback(() => {
         if (mathMode === 'Mode1') {
@@ -336,11 +340,11 @@ const Calculator = () => {
             },
             {
                 content: 'π',
-                click: () => addChars(Math.PI.toString())
+                click: () => appendChars(Math.PI.toString())
             },
             {
                 content: 'e',
-                click: () => addChars(Math.E.toString())
+                click: () => appendChars(Math.E.toString())
             },
         ]
 
@@ -422,7 +426,17 @@ const Calculator = () => {
             },
             {
                 content: '+/-',
-                click: () => { }
+                click: () => {
+                    if (result.trim() === '') {
+                        return;
+                    }
+                    if (result.startsWith('(-')) {
+                        setResult(prev => prev.slice(2));
+                    }
+                    else {
+                        setResult(prev => `(-${prev}`);
+                    }
+                }
             },
             {
                 content: '0',
@@ -456,6 +470,7 @@ const Calculator = () => {
             <input
                 ref={resultRef}
                 type={'text'}
+                inputMode={'numeric'}
                 value={result}
                 onChange={(event) => setResult(event.target.value)}
                 className={classes['Result']}

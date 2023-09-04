@@ -3,11 +3,14 @@
 
 .Calculator {
     background-color: white;
-    height: 470px;
-    width: 300px;
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
     padding: 10px;
     position: relative;
     margin: auto;
+    display: flex;
+    flex-direction: column;
 
     &.EngineerMode {
         width: 525px;
@@ -27,11 +30,14 @@
         padding: 20px 0px;
         @include flex(space-between, flex-start);
         flex-wrap: wrap;
+        flex-grow: 1;
 
         .DefaultButtons {
-            width: 300px;
-            @include flex(flex-start);
+            width: 100%;
+            @include flex(center, center);
             flex-wrap: wrap;
+            gap: 10px;
+            margin: auto;
         }
 
         .EngineerButtons {
