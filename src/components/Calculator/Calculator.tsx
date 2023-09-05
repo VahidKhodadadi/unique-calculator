@@ -10,6 +10,7 @@ import { ReactComponent as RemoveIcon } from 'src/theme/svg/delete-back-2-line.s
 
 const Calculator = () => {
     const [result, setResult] = useState('');
+    const [currentResult, setCurrentResult] = useState('');
     const resultRef = useRef<HTMLInputElement>(null);
     const [history, setHistory] = useState<{ statement: string, result: string }[]>([]);
     const [showHistory, setShowHistory] = useState(false);
@@ -29,13 +30,32 @@ const Calculator = () => {
     }, [])
 
     useEffect(() => {
-        if (showEngineerMode) {
-            window.screen.orientation.lock('landscape');
+        try {
+            const resNum = Number(eval(result));
+            const isNumber = !isNaN(resNum) && (typeof resNum === 'number' || typeof resNum === 'bigint');
+            setCurrentResult(isNumber ? resNum.toString() : '');
         }
-        else {
-            window.screen.orientation.lock('portrait');
+        catch (err) {
+            return;
         }
-    }, [showEngineerMode])
+    }, [result])
+
+    // useEffect(() => {
+    //     if (showEngineerMode) {
+    //         window.screen.orientation.lock('landscape');
+    //     }
+    //     else {
+    //         window.screen.orientation.lock('portrait');
+    //     }
+    // }, [showEngineerMode])
+
+    const degToRadian = (angle: number) => {
+        return angle * Math.PI / 180;
+    }
+
+    const radianToDeg = (angle: number) => {
+        return angle * 180 / Math.PI;
+    }
 
     const calcMathOperations = useCallback((statement: string) => {
         // temp convertion
@@ -163,11 +183,25 @@ const Calculator = () => {
     const changeAngleMode = useCallback(() => {
         if (angleMode === 'Deg') {
             setAngleMode('Rad');
+            transformResultBasedOnAngleMode('Rad');
         }
         else {
             setAngleMode('Deg');
+            transformResultBasedOnAngleMode('Deg');
         }
     }, [angleMode])
+
+    const transformResultBasedOnAngleMode = (angMode: 'Deg' | 'Rad') => {
+        console.log('result', result);
+        const resultArr = result.split('-').join('x')
+            .split('+').join('x')
+            .split('*').join('x')
+            .split('/').join('x')
+            .split('-').join('x')
+            .split('^').join('x')
+            .split('x');
+        console.log('resultArr', resultArr);
+    }
 
     const factorial = useCallback((num: number): number => {
         if (num < 0) {
@@ -427,9 +461,6 @@ const Calculator = () => {
             {
                 content: '+/-',
                 click: () => {
-                    // if (result.trim() === '') {
-                    //     return;
-                    // }
                     if (result.startsWith('-')) {
                         setResult(prev => prev.slice(1));
                     }
@@ -478,7 +509,7 @@ const Calculator = () => {
                 onChange={(event) => setResult(event.target.value)}
                 className={classes['Result']}
             />
-
+            <span className={classes['CurrentResult']}>{currentResult}</span>
             <div className={classes['SpecialButtons']}>
                 {
                     !showHistory ?
@@ -499,7 +530,7 @@ const Calculator = () => {
 
             <div className={classes['Buttons']}>
                 {
-                    showEngineerMode &&
+                    showEngineerMode && !showHistory &&
                     <div className={classes['EngineerButtons']}>
                         {(mathMode === 'Mode1' ? engineerButtons : mathematicButtons)
                             .map(({ content, click, className }, index: number) => {
@@ -522,27 +553,30 @@ const Calculator = () => {
                     </div>
                 }
 
-                <div className={classes['DefaultButtons']}>
-                    {buttons.map(({ content, click, className }) => {
-                        return (
-                            <Element
-                                className={className}
-                                key={content}
-                                content={content}
-                                click={() => {
-                                    click();
+                {
+                    !showHistory &&
+                    <div className={classes['DefaultButtons']}>
+                        {buttons.map(({ content, click, className }) => {
+                            return (
+                                <Element
+                                    className={className}
+                                    key={content}
+                                    content={content}
+                                    click={() => {
+                                        click();
 
-                                    if (resultRef && resultRef.current) {
-                                        (resultRef.current as HTMLInputElement).style.color = 'green';
-                                    }
-                                    resultRef.current?.focus();
-                                }}
-                            />
-                        )
-                    })}
-                </div>
+                                        if (resultRef && resultRef.current) {
+                                            (resultRef.current as HTMLInputElement).style.color = 'green';
+                                        }
+                                        resultRef.current?.focus();
+                                    }}
+                                />
+                            )
+                        })}
+                    </div>
+                }
+                {showHistory && <History clearHistory={clearHistory} data={history} />}
             </div>
-            {showHistory && <History clearHistory={clearHistory} data={history} />}
         </div>
     )
 }
