@@ -9,12 +9,13 @@ interface ElementProps {
 
 const Element: FC<ElementProps> = ({ content: Content, className, click }) => {
     return (
-        <div
+        <button
             className={`${classes['Element']} ${className || ''}`}
             onClick={click}
+            title={typeof Content === 'string' ? Content : ''}
         >
             {Content}
-        </div>
+        </button>
     )
 }
 

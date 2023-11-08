@@ -513,19 +513,22 @@ const Calculator = () => {
             <div className={classes['SpecialButtons']}>
                 {
                     !showHistory ?
-                        <HistoryIcon className={classes['Icon']} onClick={() => setShowHistory(true)} />
+                        <button onClick={() => setShowHistory(true)} title={'History'}><HistoryIcon className={classes['Icon']} /></button>
                         :
                         <CalculatorIcon className={classes['Icon']} onClick={() => setShowHistory(false)} />
                 }
-                <MathCompassIcon
-                    className={classes['Icon']}
+                <button
+                    title={'Engineer mode'}
                     onClick={() => setShowEngineerMode(prev => !prev)}
-                />
+                >
+                    <MathCompassIcon
+                        className={classes['Icon']}
+                    />
+                </button>
 
-                <RemoveIcon
-                    onClick={onClearLastChar}
-                    className={`${classes['Icon']} ${classes['ClearIcon']}`}
-                />
+                <button onClick={onClearLastChar} title={'Clear'} className={classes['ClearButton']}>
+                    <RemoveIcon className={`${classes['Icon']} ${classes['ClearIcon']}`} />
+                </button>
             </div>
 
             <div className={classes['Buttons']}>
