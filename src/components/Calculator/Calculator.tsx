@@ -509,7 +509,7 @@ const Calculator = () => {
                 onChange={(event) => setResult(event.target.value)}
                 className={classes['Result']}
             />
-            <span className={classes['CurrentResult']}>{currentResult}</span>
+            <span title={'Current result'} className={classes['CurrentResult']}>{currentResult}</span>
             <div className={classes['SpecialButtons']}>
                 {
                     !showHistory ?
