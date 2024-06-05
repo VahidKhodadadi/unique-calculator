@@ -500,7 +500,11 @@ const Calculator = () => {
 
 
     return (
-        <div className={`${classes['Calculator']} ${showEngineerMode ? classes['EngineerMode'] : ''}`}>
+        <main onKeyDownCapture={e => {
+            if (e.key === 'Enter') {
+                calculateResult();
+            }
+        }} className={`${classes['Calculator']} ${showEngineerMode ? classes['EngineerMode'] : ''}`}>
             <input
                 ref={resultRef}
                 type={'text'}
@@ -572,6 +576,7 @@ const Calculator = () => {
                                             (resultRef.current as HTMLInputElement).style.color = 'green';
                                         }
                                         resultRef.current?.focus();
+
                                     }}
                                 />
                             )
@@ -580,7 +585,7 @@ const Calculator = () => {
                 }
                 {showHistory && <History clearHistory={clearHistory} data={history} />}
             </div>
-        </div>
+        </main>
     )
 }
 

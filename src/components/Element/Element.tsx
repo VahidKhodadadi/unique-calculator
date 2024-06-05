@@ -7,14 +7,15 @@ interface ElementProps {
     click?: (data?: any) => void
 }
 
-const Element: FC<ElementProps> = ({ content: Content, className, click }) => {
+const Element: FC<ElementProps> = ({ content, className, click }) => {
     return (
         <button
             className={`${classes['Element']} ${className || ''}`}
             onClick={click}
-            title={typeof Content === 'string' ? Content : ''}
+            title={typeof content === 'string' ? content : ''}
+            type={'button'}
         >
-            {Content}
+            {content}
         </button>
     )
 }
