@@ -9,21 +9,19 @@ interface HistoryProps {
 const History: FC<HistoryProps> = ({ data, clearHistory }) => {
     return (
         <div className={classes['History']}>
-            <div className={classes['HistoryItems']}>
+            <ul className={classes['HistoryItems']}>
                 {
                     data.map(({ statement, result }, index) => {
                         return (
-                            <div key={`history-item-${index}`} className={classes['HistoryItem']}>
-                                <div className={classes['HistoryStatement']}>{statement}</div>
-                                <div className={classes['HistoryResult']}>={result}</div>
-                            </div>
+                            <li key={`history-item-${index}`} className={classes['HistoryItem']}>
+                                <span className={classes['HistoryStatement']}>{statement}</span>
+                                <span className={classes['HistoryResult']}>={result}</span>
+                            </li>
                         )
                     })
                 }
-            </div>
-            <div className={classes['ClearButtonContainer']}>
-                <div className={classes['ClearButton']} onClick={clearHistory}>Clear history</div>
-            </div>
+            </ul>
+            <button className={classes['ClearButton']} onClick={clearHistory}>Clear history</button>
         </div>
     )
 }
