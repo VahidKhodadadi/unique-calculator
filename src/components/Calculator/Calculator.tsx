@@ -36,7 +36,7 @@ const Calculator = () => {
             setCurrentResult(isNumber ? resNum.toString() : '');
         }
         catch (err) {
-            return;
+            console.error(err);
         }
     }, [result])
 
@@ -192,7 +192,6 @@ const Calculator = () => {
     }, [angleMode])
 
     const transformResultBasedOnAngleMode = (angMode: 'Deg' | 'Rad') => {
-        console.log('result', result);
         const resultArr = result.split('-').join('x')
             .split('+').join('x')
             .split('*').join('x')
@@ -200,7 +199,6 @@ const Calculator = () => {
             .split('-').join('x')
             .split('^').join('x')
             .split('x');
-        console.log('resultArr', resultArr);
     }
 
     const factorial = useCallback((num: number): number => {

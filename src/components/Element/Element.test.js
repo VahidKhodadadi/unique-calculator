@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import Element from './Element';
 import userEvent from '@testing-library/user-event';
 
-test('Click function is invoked one time', async () => {
+test('click function is invoked one time', async () => {
     const clickFn = jest.fn();
     render(<Element content={'='} click={clickFn} />);
     // screen.debug();
@@ -11,13 +11,13 @@ test('Click function is invoked one time', async () => {
     expect(clickFn).toBeCalledTimes(1);
 })
 
-test('Displays a button', () => {
+test('button is displayed', () => {
     render(<Element content={'='} />);
     const button = screen.getByRole('button');
     expect(button).toBeInTheDocument();
 })
 
-test('Has tooltip on button', () => {
+test('button has tooltip', () => {
     render(<Element content={'='} />);
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('title');
