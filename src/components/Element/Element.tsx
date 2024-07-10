@@ -1,5 +1,4 @@
 import { FC, memo, ReactElement } from 'react';
-import classes from './Element.module.scss';
 
 interface ElementProps {
     content: string | ReactElement,
@@ -10,7 +9,7 @@ interface ElementProps {
 const Element: FC<ElementProps> = ({ content, className, click }) => {
     return (
         <button
-            className={`${classes['Element']} ${className || ''}`}
+            className={`${'w-1/5 max-w-1/4 aspect-square bg-gray-200 rounded-full transition-all select-none text-3xl flex justify-center items-center active:scale-95 active:bg-green-600 active:text-white'} ${className || ''}`}
             onClick={click}
             title={typeof content === 'string' ? content : ''}
             type={'button'}

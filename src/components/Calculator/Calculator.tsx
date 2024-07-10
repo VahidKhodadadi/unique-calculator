@@ -258,7 +258,7 @@ const Calculator = () => {
     }[] = [
             {
                 content: <SwapIcon
-                    className={classes['Icon']}
+                    className={classes['icon']}
                     onClick={changeMathMode}
                 />,
                 click: changeMathMode
@@ -323,7 +323,7 @@ const Calculator = () => {
         className?: string
     }[] = [
             {
-                content: <SwapIcon className={classes['Icon']} onClick={changeMathMode} />,
+                content: <SwapIcon className={classes['icon']} onClick={changeMathMode} />,
                 click: changeMathMode
             },
             {
@@ -388,21 +388,21 @@ const Calculator = () => {
             {
                 content: 'C',
                 click: clearResult,
-                className: classes['Red']
+                className: 'text-4xl text-red-500'
             },
             {
                 content: '()',
-                className: classes['ColorGreen'],
+                className: '!text-4xl text-green-700',
                 click: useParenthesis
             },
             {
                 content: '%',
-                className: classes['ColorGreen'],
+                className: '!text-4xl text-green-700',
                 click: () => addOperator('%')
             },
             {
                 content: '/',
-                className: classes['ColorGreen'],
+                className: '!text-4xl text-green-700',
                 click: () => addOperator('/')
             },
             {
@@ -419,7 +419,7 @@ const Calculator = () => {
             },
             {
                 content: '*',
-                className: classes['ColorGreen'],
+                className: '!text-4xl text-green-700',
                 click: () => addOperator('*')
             },
             {
@@ -436,7 +436,7 @@ const Calculator = () => {
             },
             {
                 content: '-',
-                className: classes['ColorGreen'],
+                className: '!text-4xl text-green-700',
                 click: () => addOperator('-')
             },
             {
@@ -453,7 +453,7 @@ const Calculator = () => {
             },
             {
                 content: '+',
-                className: classes['ColorGreen'],
+                className: '!text-4xl text-green-700',
                 click: () => addOperator('+')
             },
             {
@@ -491,52 +491,52 @@ const Calculator = () => {
             {
                 content: '=',
                 click: calculateResult,
-                className: classes['BackGreen']
+                className: '!bg-green-600 text-white text-4xl'
             }
         ]
-
-
 
     return (
         <main onKeyDownCapture={e => {
             if (e.key === 'Enter') {
                 calculateResult();
             }
-        }} className={`${classes['Calculator']} ${showEngineerMode ? classes['EngineerMode'] : ''}`}>
+        }} className={'bg-white w-full h-screen max-h-screen p-2 m-auto flex flex-col'}>
             <input
                 ref={resultRef}
                 type={'text'}
                 inputMode={'none'}
                 value={result}
                 onChange={(event) => setResult(event.target.value)}
-                className={classes['Result']}
+                className={'w-full h-[66px] border-none outline-none p-5 text-5xl mb-2 caret-lime-700'}
             />
-            <span title={'Current result'} className={classes['CurrentResult']}>{currentResult}</span>
-            <div className={classes['SpecialButtons']}>
+            <span title={'Current result'} className={'w-full h-[40px] py-2 px-5 text-3xl mb-2 text-gray-500'}>
+                {currentResult}
+            </span>
+            <div className={'w-full p-5 flex justify-start items-center border-b-2 border-b-gray-500'}>
                 {
                     !showHistory ?
-                        <button onClick={() => setShowHistory(true)} title={'History'}><HistoryIcon className={classes['Icon']} /></button>
+                        <button onClick={() => setShowHistory(true)} title={'History'}><HistoryIcon className={classes['icon']} /></button>
                         :
-                        <CalculatorIcon className={classes['Icon']} onClick={() => setShowHistory(false)} />
+                        <CalculatorIcon className={classes['icon']} onClick={() => setShowHistory(false)} />
                 }
                 <button
                     title={'Engineer mode'}
                     onClick={() => setShowEngineerMode(prev => !prev)}
                 >
                     <MathCompassIcon
-                        className={classes['Icon']}
+                        className={classes['icon']}
                     />
                 </button>
 
-                <button onClick={onClearLastChar} title={'Clear'} className={classes['ClearButton']}>
-                    <RemoveIcon className={`${classes['Icon']} ${classes['ClearIcon']}`} />
+                <button onClick={onClearLastChar} title={'Clear'} className={'ml-auto'}>
+                    <RemoveIcon className={`${classes['icon']} fill-green-600`} />
                 </button>
             </div>
 
-            <div className={classes['Buttons']}>
+            <div className={'w-full py-5 px-0 flex justify-between items-start flex-wrap flex-grow relative overflow-y-auto'}>
                 {
                     showEngineerMode && !showHistory &&
-                    <div className={classes['EngineerButtons']}>
+                    <div className={'w-full flex justify-center flex-wrap gap-2 m-auto mb-2'}>
                         {(mathMode === 'Mode1' ? engineerButtons : mathematicButtons)
                             .map(({ content, click, className }, index: number) => {
                                 return (
@@ -557,10 +557,9 @@ const Calculator = () => {
                             })}
                     </div>
                 }
-
                 {
                     !showHistory &&
-                    <div className={classes['DefaultButtons']}>
+                    <div className={'w-full flex justify-center items-center flex-wrap gap-2 m-auto'}>
                         {buttons.map(({ content, click, className }) => {
                             return (
                                 <Element
