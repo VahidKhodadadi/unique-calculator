@@ -7,7 +7,7 @@ interface HistoryProps {
 
 const History: FC<HistoryProps> = ({ data, clearHistory }) => {
     return (
-        <div className={'absolute bottom-0 left-0 w-full h-full bg-white p-5 flex justify-start items-end flex-col border-2 border-gray-500'}>
+        <div className={'absolute bottom-0 left-0 w-full h-full bg-white p-5 flex justify-start items-end flex-col border-2 border-gray-200'}>
             <ul className={'h-[calc(100%-60px)] w-full pl-5 overflow-scroll flex justify-start items-end flex-col'}>
                 {
                     data.map(({ statement, result }, index) => {
@@ -21,7 +21,7 @@ const History: FC<HistoryProps> = ({ data, clearHistory }) => {
                 }
             </ul>
             <button
-                className={'mt-3 w-full h-[34px] text-2xl bg-gray-200 text-black flex justify-center items-center rounded-sm cursor-pointer'}
+                className={'mt-3 w-full h-[34px] text-2xl bg-gray-200 text-black flex justify-center items-center rounded-sm cursor-pointer active:bg-green-500 active:text-white'}
                 onClick={clearHistory}
             >
                 Clear history

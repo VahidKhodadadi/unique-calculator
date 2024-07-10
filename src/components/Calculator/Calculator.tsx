@@ -512,7 +512,7 @@ const Calculator = () => {
             <span title={'Current result'} className={'w-full h-[40px] py-2 px-5 text-3xl mb-2 text-gray-500'}>
                 {currentResult}
             </span>
-            <div className={'w-full p-5 flex justify-start items-center border-b-2 border-b-gray-500'}>
+            <div className={'w-full p-5 flex justify-start items-center border-b-2 border-b-gray-200'}>
                 {
                     !showHistory ?
                         <button onClick={() => setShowHistory(true)} title={'History'}><HistoryIcon className={classes['icon']} /></button>
