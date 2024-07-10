@@ -31,9 +31,11 @@ const Calculator = () => {
 
     useEffect(() => {
         try {
-            const resNum = Number(eval(result));
-            const isNumber = !isNaN(resNum) && (typeof resNum === 'number' || typeof resNum === 'bigint');
-            setCurrentResult(isNumber ? resNum.toString() : '');
+            if (!isLastCharOperator()) {
+                const resNum = parseInt(eval(result));
+                const isNumber = !isNaN(resNum) && (typeof resNum === 'number' || typeof resNum === 'bigint');
+                setCurrentResult(isNumber ? resNum.toString() : '');
+            }
         }
         catch (err) {
             console.error(err);
@@ -392,17 +394,17 @@ const Calculator = () => {
             },
             {
                 content: '()',
-                className: '!text-4xl text-green-700',
+                className: '!text-4xl text-green-600',
                 click: useParenthesis
             },
             {
                 content: '%',
-                className: '!text-4xl text-green-700',
+                className: '!text-4xl text-green-600',
                 click: () => addOperator('%')
             },
             {
                 content: '/',
-                className: '!text-4xl text-green-700',
+                className: '!text-4xl text-green-600',
                 click: () => addOperator('/')
             },
             {
@@ -419,7 +421,7 @@ const Calculator = () => {
             },
             {
                 content: '*',
-                className: '!text-4xl text-green-700',
+                className: '!text-4xl text-green-600',
                 click: () => addOperator('*')
             },
             {
@@ -436,7 +438,7 @@ const Calculator = () => {
             },
             {
                 content: '-',
-                className: '!text-4xl text-green-700',
+                className: '!text-4xl text-green-600',
                 click: () => addOperator('-')
             },
             {
@@ -453,7 +455,7 @@ const Calculator = () => {
             },
             {
                 content: '+',
-                className: '!text-4xl text-green-700',
+                className: '!text-4xl text-green-600',
                 click: () => addOperator('+')
             },
             {
@@ -506,7 +508,9 @@ const Calculator = () => {
                 type={'text'}
                 inputMode={'none'}
                 value={result}
-                onChange={(event) => setResult(event.target.value)}
+                onChange={(event) => {
+                    setResult(event.target.value);
+                }}
                 className={'w-full h-[66px] border-none outline-none p-5 text-5xl mb-2 caret-lime-700'}
             />
             <span title={'Current result'} className={'w-full h-[40px] py-2 px-5 text-3xl mb-2 text-gray-500'}>
@@ -573,7 +577,6 @@ const Calculator = () => {
                                             (resultRef.current as HTMLInputElement).style.color = 'green';
                                         }
                                         resultRef.current?.focus();
-
                                     }}
                                 />
                             )
