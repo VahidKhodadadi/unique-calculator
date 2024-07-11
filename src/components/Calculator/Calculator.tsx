@@ -127,6 +127,7 @@ const Calculator = () => {
     }, [appendChars])
 
     const clearResult = useCallback(() => {
+        setCurrentResult('');
         setResult('');
     }, [])
 
